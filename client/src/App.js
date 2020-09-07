@@ -3,6 +3,7 @@ import React, { Fragment } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import ContactState from './context/contact/ContactState';
+import AuthState from './context/auth/AuthState';
 
 import './App.css';
 
@@ -12,19 +13,21 @@ import About from './components/pages/About';
 
 const App = () => {
   return (
-    <ContactState>
-      <Router>
-        <Fragment>
-          <Navbar />
-        </Fragment>
-        <div className='container'>
-          <Switch>
-            <Route exact path='/' component={Home}></Route>
-            <Route exact path='/about' component={About}></Route>
-          </Switch>
-        </div>
-      </Router>
-    </ContactState>
+    <AuthState>
+      <ContactState>
+        <Router>
+          <Fragment>
+            <Navbar />
+          </Fragment>
+          <div className='container'>
+            <Switch>
+              <Route exact path='/' component={Home}></Route>
+              <Route exact path='/about' component={About}></Route>
+            </Switch>
+          </div>
+        </Router>
+      </ContactState>
+    </AuthState>
   );
 };
 
