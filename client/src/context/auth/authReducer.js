@@ -8,3 +8,5 @@ import {
   LOGOUT,
   CLEAR_ERRORS,
 } from '../types';
+
+export default (state, action) => {};

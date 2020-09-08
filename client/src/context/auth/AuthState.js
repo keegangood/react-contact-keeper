@@ -2,7 +2,7 @@ import React, { useReducer } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import AuthContext from './authContext';
-import AuthReducer from './authReducer';
+import authReducer from './authReducer';
 
 import {
   ADD_CONTACT,
@@ -23,7 +23,7 @@ const AuthState = props => {
     user: null,
   };
 
-  const [state, dispatch] = useReducer(contactReducer, initialState);
+  const [state, dispatch] = useReducer(authReducer, initialState);
 
   // Load User
 
