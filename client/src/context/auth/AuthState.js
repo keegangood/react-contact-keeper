@@ -15,6 +15,8 @@ import {
   CLEAR_FILTER,
   REGISTER_SUCCESS,
   REGISTER_FAIL,
+  CLEAR_ERRORS,
+  SET_ALERT,
 } from '../types';
 
 const AuthState = props => {
@@ -42,13 +44,16 @@ const AuthState = props => {
     try {
       const response = await axios.post('/api/users', formData, config);
 
-      console.log(response);
+      console.log(`response: ${response}`);
 
       dispatch({
         type: REGISTER_SUCCESS,
         payload: response.data,
       });
     } catch (error) {
+      console.log(`error: ${error} `);
+      console.log(`msg: ${error.response.data.msg}`);
+
       dispatch({
         type: REGISTER_FAIL,
         payload: error.response.data.msg,
@@ -63,7 +68,7 @@ const AuthState = props => {
   const logout = () => console.log('logout user');
 
   // Clear Errors
-  const clearErrors = () => console.log('Clear errors');
+  const clearErrors = () => dispatch({ type: CLEAR_ERRORS });
 
   return (
     <AuthContext.Provider
