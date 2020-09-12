@@ -15,6 +15,8 @@ import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import Alerts from './components/layout/Alerts';
 
+import PrivateRoute from './components/routing/PrivateRoute';
+
 import './App.css';
 const App = () => {
   return (
@@ -28,7 +30,7 @@ const App = () => {
             <div className='container'>
               <Alerts />
               <Switch>
-                <Route exact path='/' component={Home}></Route>
+                <PrivateRoute exact path='/' component={Home}></PrivateRoute>
                 <Route exact path='/about' component={About}></Route>
                 <Route exact path='/register' component={Register}></Route>
                 <Route exact path='/login' component={Login}></Route>
