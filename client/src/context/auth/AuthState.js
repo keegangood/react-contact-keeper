@@ -1,6 +1,8 @@
 import React, { useReducer } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+
 import axios from 'axios';
+import setAuthToken from '../../utils/setAuthToken';
 
 import AuthContext from './authContext';
 import authReducer from './authReducer';
@@ -17,7 +19,13 @@ import {
   REGISTER_FAIL,
   CLEAR_ERRORS,
   SET_ALERT,
+  USER_LOADED,
+  AUTH_ERROR,
 } from '../types';
+
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
+}
 
 const AuthState = props => {
   const initialState = {
@@ -31,7 +39,24 @@ const AuthState = props => {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
   // Load User
-  const loadUser = () => console.log('Load user');
+  const loadUser = async () => {
+    if (localStorage.token) {
+      setAuthToken(localStorage.token);
+    }
+
+    try {
+      const response = await axios.get('/api/auth');
+
+      console.log('AUTH USER: ', response);
+
+      dispatch({
+        type: USER_LOADED,
+        payload: response.data,
+      });
+    } catch (error) {
+      dispatch({ type: AUTH_ERROR });
+    }
+  };
 
   // Register User
   const register = async formData => {
@@ -44,15 +69,16 @@ const AuthState = props => {
     try {
       const response = await axios.post('/api/users', formData, config);
 
-      console.log(`response: ${response}`);
+      console.log(response.data);
 
       dispatch({
         type: REGISTER_SUCCESS,
         payload: response.data,
       });
+
+      loadUser();
     } catch (error) {
-      console.log(`error: ${error} `);
-      console.log(`msg: ${error.response.data.msg}`);
+      // console.log('AXIOS ERROR: ', error);
 
       dispatch({
         type: REGISTER_FAIL,

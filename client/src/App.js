@@ -6,7 +6,7 @@ import ContactState from './context/contact/ContactState';
 import AuthState from './context/auth/AuthState';
 import AlertState from './context/alerts/AlertState';
 
-import './App.css';
+import setAuthToken from './utils/setAuthToken';
 
 import Navbar from './components/layout/Navbar';
 import Home from './components/pages/Home';
@@ -15,6 +15,7 @@ import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import Alerts from './components/layout/Alerts';
 
+import './App.css';
 const App = () => {
   return (
     <AuthState>
