@@ -23,6 +23,7 @@ import {
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
+  LOGOUT,
 } from '../types';
 
 if (localStorage.token) {
@@ -115,7 +116,7 @@ const AuthState = props => {
   };
 
   // Logout
-  const logout = () => console.log('logout user');
+  const logout = () => dispatch({ type: LOGOUT });
 
   // Clear Errors
   const clearErrors = () => dispatch({ type: CLEAR_ERRORS });
