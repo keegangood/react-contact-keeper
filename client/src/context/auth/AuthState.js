@@ -21,6 +21,8 @@ import {
   SET_ALERT,
   USER_LOADED,
   AUTH_ERROR,
+  LOGIN_SUCCESS,
+  LOGIN_FAIL,
 } from '../types';
 
 if (localStorage.token) {
@@ -88,7 +90,29 @@ const AuthState = props => {
   };
 
   // Login User
-  const login = () => console.log('login user');
+  const login = async formData => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    try {
+      const response = await axios.post('/api/auth', formData, config);
+
+      dispatch({
+        type: LOGIN_SUCCESS,
+        payload: response.data,
+      });
+
+      loadUser();
+    } catch (error) {
+      dispatch({
+        type: LOGIN_FAIL,
+        payload: error.response.data.msg,
+      });
+    }
+  };
 
   // Logout
   const logout = () => console.log('logout user');
