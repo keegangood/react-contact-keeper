@@ -6,8 +6,6 @@ import ContactState from './context/contact/ContactState';
 import AuthState from './context/auth/AuthState';
 import AlertState from './context/alerts/AlertState';
 
-import setAuthToken from './utils/setAuthToken';
-
 import Navbar from './components/layout/Navbar';
 import Home from './components/pages/Home';
 import About from './components/pages/About';
